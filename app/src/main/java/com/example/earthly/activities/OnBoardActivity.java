@@ -26,7 +26,17 @@ public class OnBoardActivity extends AppCompatActivity {
         binding = ActivityOnBoardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
-        String []titles = {getString(R.string.globe),
+
+        String [] titles = {
+                "Social Media",
+                "Map Activity",
+                "Youtube/Google",
+                "Barcode Scanner",
+                "Plant Analyzer",
+                "ChatBot"
+        };
+
+        String []subTitles = {getString(R.string.globe),
                 getString(R.string.map),
                 getString(R.string.reels),
                 getString(R.string.scanner),
@@ -42,7 +52,7 @@ public class OnBoardActivity extends AppCompatActivity {
         boardItems = new ArrayList<>();
         for(int i=0;i<6;i++)
         {
-            OnBoardItem item = new OnBoardItem(titles[i],images[i]);
+            OnBoardItem item = new OnBoardItem(titles[i],subTitles[i],images[i]);
             boardItems.add(item);
         }
 

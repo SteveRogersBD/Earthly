@@ -3,10 +3,20 @@ package com.example.earthly.models;
 public class OnBoardItem {
 
     private String title;
+    private String subTitle;
     private int image;
 
-    public OnBoardItem(String title, int image) {
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    public OnBoardItem(String title, String subTitle, int image) {
         this.title = title;
+        this.subTitle = subTitle;
         this.image = image;
     }
 
