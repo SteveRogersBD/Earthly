@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Earthly</string>
+    <string name="globe">Stay connected with the local community</string>
+    <string name="map">Know about the local events through a map</string>
+    <string name="reels">Watch relevant trending reels, blogs, news</string>
+    <string name="scanner">Scan to know more about any product</string>
+    <string name="analyzer">Ai powered plant and disease analyzer</string>
+    <string name="chatbot">Bot to help you 24x7</string>
+
+
+</resources>
