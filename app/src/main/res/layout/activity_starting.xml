@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryVariant"
+    android:background="@drawable/onboard_bg"
     android:padding="20dp"
     tools:context=".activities.StartingActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/startBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="61dp"
+        android:elevation="40dp"
+        android:fontFamily="@font/poppins_bold_italic"
+        android:gravity="center"
+        android:padding="10dp"
+        android:shadowColor="#111711"
+        android:text="Get Started"
+        android:textColor="@color/white"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/colorSecondaryVariant"
-        android:textColor="@color/white"
-        android:text="Get Started"
-        android:textSize="20sp"
-        android:elevation="30dp"
-        android:shadowColor="#29422A"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/onboard_bg"
@@ -8,23 +9,23 @@
     android:paddingRight="10dp">
 
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@drawable/search_bg"
         android:layout_marginTop="20dp"
+        android:background="@drawable/search_bg"
+        android:layout_alignParentTop="true"
+        app:queryHint="Search"
         app:searchIcon="@drawable/search"
-        android:id="@+id/searchView"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/text_recycler"
+        android:gravity="center"/>
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_below="@+id/searchView"
-        android:layout_marginTop="20dp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/video_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_recycler"/>
+        android:layout_marginTop="20dp"
+        android:id="@+id/listView"
+        />
+
 
 
 

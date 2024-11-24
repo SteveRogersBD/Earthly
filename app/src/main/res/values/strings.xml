@@ -8,4 +8,10 @@
     <string name="chatbot">Bot to help you 24x7</string>
 
 
+    <string name="videoKey">353b66e372mshc1bc6556a7cb404p1b2297jsn6230a7927dd4</string>
+    <string name="videoHost">yt-api.p.rapidapi.com</string>
+
+
+
+
 </resources>

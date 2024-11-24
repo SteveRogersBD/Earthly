@@ -6,7 +6,7 @@
 
     </style>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Primary color (e.g., green for nature, science vibes) -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -30,6 +30,11 @@
 
         <!-- Dark and Light modes -->
         <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Make sure status bar color is set explicitly -->
+        <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
+        <item name="android:enforceStatusBarContrast" tools:targetApi="q">true</item>
     </style>
+
 
 </resources>
