@@ -34,6 +34,8 @@
         <!-- Make sure status bar color is set explicitly -->
         <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
         <item name="android:enforceStatusBarContrast" tools:targetApi="q">true</item>
+
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
 

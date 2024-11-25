@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.earthly.adapters.TextAdapter;
 import com.example.earthly.adapters.VideoAdapter;
 import com.example.earthly.apiIterfaces.VideoApi;
+import com.example.earthly.apiIterfaces.VideoApiUtil;
 import com.example.earthly.databinding.ActivityMainBinding;
 import com.example.earthly.models.ListItem;
 import com.example.earthly.responses.YouTubeResponse;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     VideoAdapter videoAdapter;
     VideoApi videoApi;
     List<YouTubeResponse.Datum> videos;
+    VideoApiUtil videoApiUtil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         listItems.add(new ListItem("Trending"));
         listItems.add(new ListItem("Care"));
         listItems.add(new ListItem("Sustainability"));
+        listItems.add(new ListItem("Conservation"));
+        listItems.add(new ListItem("Renewable Energy"));
+        listItems.add(new ListItem("Sustainability"));
+        listItems.add(new ListItem("Climate Change"));
+        listItems.add(new ListItem("Green House Gas"));
 
         textAdapter = new TextAdapter(this,listItems);
         binding.textRecycler.setAdapter(textAdapter);
@@ -63,49 +70,40 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager.HORIZONTAL,false));
 
 
-        videoApi = RetrofitInstance.VideoFit.create(VideoApi.class);
-        Call<YouTubeResponse>getVideos = videoApi.searchVideos("Chemistry experiments",
+        //initializing the recyclerview with no videos
+        videos = new ArrayList<>();
+        videoAdapter = new VideoAdapter(MainActivity.this,videos);
+        binding.videoRecycler.setAdapter(videoAdapter);
+        binding.videoRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this,
+                LinearLayoutManager.HORIZONTAL, false));
+        updateVideos("plants sustainability nature");
+
+
+
+
+
+
+    }
+
+    public void updateVideos(String query){
+        videoApiUtil = new VideoApiUtil();
+
+        videoApiUtil.fetchVideos(query,
                 getString(R.string.videoKey),
-                getString(R.string.videoHost));
-        getVideos.enqueue(new Callback<YouTubeResponse>() {
-            @Override
-            public void onResponse(Call<YouTubeResponse> call, Response<YouTubeResponse> response) {
-                try{
-                    if (response.body() != null && response.isSuccessful()) {
-                        // Populate the videos list with data from the response
-                        videos = response.body().data;
-                        ArrayList<YouTubeResponse.Datum>filtered = new ArrayList<>();
-                        for(YouTubeResponse.Datum video: videos )
-                        {
-                            if(video.type.equals("video"))
-                            {
-                             filtered.add(video);
-                            }
-                        }
-                        videoAdapter = new VideoAdapter(MainActivity.this, filtered);
-                        binding.videoRecycler.setAdapter(videoAdapter);
-                        binding.videoRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this,
-                                LinearLayoutManager.HORIZONTAL, false));
-                    } else {
-                        // Handle empty response
-                        Toast.makeText(MainActivity.this, "No videos found", Toast.LENGTH_SHORT).show();
+                getString(R.string.videoHost),
+                new VideoApiUtil.VideoCallBack() {
+                    @Override
+                    public void onSuccess(List<YouTubeResponse.Datum> videoList) {
+                        videos.clear();
+                        videos.addAll(videoList);
+                        videoAdapter.notifyDataSetChanged();
                     }
-                }catch (Exception e)
-                {
-                    Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<YouTubeResponse> call, Throwable throwable) {
-                Toast.makeText(MainActivity.this, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-
-
+                    @Override
+                    public void onError(String errorMessage) {
+                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 }

@@ -10,8 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.earthly.MainActivity;
 import com.example.earthly.R;
+import com.example.earthly.apiIterfaces.VideoApiUtil;
 import com.example.earthly.models.ListItem;
+import com.example.earthly.responses.YouTubeResponse;
 
 import java.util.List;
 
@@ -36,6 +39,12 @@ public class TextAdapter extends RecyclerView.Adapter<TextAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListItem item = titles.get(position);
         holder.textView.setText(item.getTitle());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)context).updateVideos(item.getTitle());
+            }
+        });
     }
 
     @Override
