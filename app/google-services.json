@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "988603084669",
+    "project_id": "earthly-cac2b",
+    "storage_bucket": "earthly-cac2b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988603084669:android:9fbce7964131aa4cda2614",
+        "android_client_info": {
+          "package_name": "com.example.earthly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_BaE1YH15YpnEPg91r0Z_3mOIz2ghYp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

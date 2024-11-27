@@ -2,7 +2,6 @@ package com.example.earthly.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -46,7 +45,7 @@ public class OnBoardActivity extends AppCompatActivity {
                 R.drawable.map,
                 R.drawable.reels,
                 R.drawable.barcode,
-                R.drawable.analyze,
+                R.drawable.camera,
                 R.drawable.bot};
 
         boardItems = new ArrayList<>();

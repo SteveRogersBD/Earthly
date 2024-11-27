@@ -1,16 +1,23 @@
 package com.example.earthly;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.example.earthly.activities.AnalyzeActivity;
+import com.example.earthly.activities.MapActivity;
+import com.example.earthly.activities.PlantActivity;
 import com.example.earthly.adapters.TextAdapter;
 import com.example.earthly.adapters.VideoAdapter;
 import com.example.earthly.apiIterfaces.VideoApi;
@@ -18,6 +25,7 @@ import com.example.earthly.apiIterfaces.VideoApiUtil;
 import com.example.earthly.databinding.ActivityMainBinding;
 import com.example.earthly.models.ListItem;
 import com.example.earthly.responses.YouTubeResponse;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -35,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     VideoApi videoApi;
     List<YouTubeResponse.Datum> videos;
     VideoApiUtil videoApiUtil;
+    Fragment selected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +87,31 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager.HORIZONTAL, false));
         updateVideos("plants sustainability nature");
 
+        binding.bottomBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if(id==R.id.home_bb)
+                {
+
+                }
+                else if(id==R.id.analyze_bb)
+                {
+                    goTo(AnalyzeActivity.class);
+                }
+                else if(id==R.id.map_bb)
+                {
+                    goTo(MapActivity.class);
+                }
+                else if(id==R.id.plant_bb)
+                {
+                    goTo(PlantActivity.class);
+                }
+
+                return false;
+            }
+        });
+
 
 
 
@@ -105,5 +139,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+    public void goTo(Class<?>Destiny)
+    {
+        startActivity(new Intent(MainActivity.this,Destiny));
     }
 }

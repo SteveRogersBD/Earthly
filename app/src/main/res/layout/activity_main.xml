@@ -4,27 +4,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/onboard_bg"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical"
+        android:id="@+id/top_ll"
+        >
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/search_bg"
+            android:layout_marginTop="20dp"
+            app:searchIcon="@drawable/search"
+            android:id="@+id/searchView"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/text_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_below="@+id/searchView"
+            android:layout_marginTop="20dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/video_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/text_recycler"/>
 
-    <androidx.appcompat.widget.SearchView
+    </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@drawable/search_bg"
-        android:layout_marginTop="20dp"
-        app:searchIcon="@drawable/search"
-        android:id="@+id/searchView"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryVariant"
+        android:id="@+id/bottomBar"
+        app:menu="@menu/bottom_menu"
+        app:itemIconTint="@color/white"
+        app:itemIconSize="35dp"
+        />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/text_recycler"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_below="@+id/searchView"
-        android:layout_marginTop="20dp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/video_recycler"
-        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/post_recycler"
+        android:layout_below="@+id/top_ll"
+        android:layout_above="@+id/bottomBar"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_below="@+id/text_recycler"/>
+        android:layout_above="@+id/bottomBar"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/bot"
+        android:tint="@color/white"
+        android:background="@color/colorPrimaryVariant"
+        />
+
 
 
 

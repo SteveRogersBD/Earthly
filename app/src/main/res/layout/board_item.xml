@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/analyze"
+        android:src="@drawable/camera"
         android:id="@+id/onboard_item_poster"
         app:tint="@color/colorPrimaryVariant"
         android:layout_marginBottom="20dp"
