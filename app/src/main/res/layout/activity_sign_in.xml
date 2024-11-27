@@ -51,7 +51,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/password_sign_in"
         android:hint="Email"
         android:layout_marginTop="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -60,14 +59,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:id="@+id/email_sign_in"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/email_sign_in"
         android:layout_marginTop="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
         android:hint="Password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
@@ -75,10 +76,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:id="@+id/password_sign_in"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
+        android:id="@+id/forgot_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Forgot Password?"
@@ -126,6 +129,7 @@
                 android:textStyle="bold"
                 />
             <TextView
+                android:id="@+id/sign_up_tv_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/antic"

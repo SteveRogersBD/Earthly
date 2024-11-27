@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.earthly.MainActivity;
 import com.example.earthly.R;
 import com.example.earthly.apiIterfaces.MapApiUtil;
 import com.example.earthly.databinding.ActivityMapBinding;
@@ -73,6 +72,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+        });
+        binding.addButton.setOnClickListener((v)->{
+
         });
 
     }
