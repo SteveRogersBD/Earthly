@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,11 +15,14 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.example.earthly.MainActivity;
 import com.example.earthly.R;
 import com.example.earthly.apiIterfaces.MapApiUtil;
 import com.example.earthly.databinding.ActivityMapBinding;
+import com.example.earthly.requests.EventRequest;
 import com.example.earthly.responses.MapResponse;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -29,8 +33,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,7 +66,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         locationPreference = getApplicationContext().getSharedPreferences("Location",
                 Context.MODE_PRIVATE);
-        mapApiUtil = new MapApiUtil();
+        mapApiUtil = new MapApiUtil(MapActivity.this);
         useMapApiUtil("Parks near me");
         useMapApiUtil("Farmer's market near me");
         useMapApiUtil("Eco near me");
@@ -73,8 +82,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return false;
             }
         });
-        binding.addButton.setOnClickListener((v)->{
 
+        mMap.setOnMapClickListener(latLng->{
+            showDialog(latLng);
         });
 
     }
@@ -235,6 +245,57 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(location).title(add.title));
             //mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         }
+    }
+    private void getUserInfo(String[] info)
+    {
+        info[0]=locationPreference.getString("username",null);
+        info[1]=locationPreference.getString("email",null);
+        info[2]=String.valueOf(locationPreference.getInt("userID",0));
+    }
+
+    private void showDialog(LatLng eventLocation)
+    {
+        Dialog dialog = new Dialog(this,R.style.CustomDialogTheme);
+        dialog.setContentView(R.layout.dialog_layout);
+        dialog.setCancelable(true);
+        MaterialTextView titleET = dialog.findViewById(R.id.titleEditText);
+        MaterialTextView descET = dialog.findViewById(R.id.descriptionEditText);
+        MaterialTextView dateEt = dialog.findViewById(R.id.dateEditText);
+        //LocalDate eventDate;
+        dialog.findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = titleET.getText().toString();
+                String desc = descET.getText().toString();
+                String date = dateEt.getText().toString();
+                if(title.isEmpty()) titleET.setError("Enter a title");
+                if(desc.isEmpty()) descET.setError("Enter a description");
+                if(date.isEmpty()) dateEt.setError("Enter a date");
+                EventRequest request = new EventRequest(title,desc,
+                        eventLocation.latitude,eventLocation.longitude,
+                        );
+            }
+        });
+        dateEt.setOnClickListener((v)->{
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    MapActivity.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        LocalDate eventDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay);
+                        // Format the selected date as "dd/MM/yyyy"
+                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+
+                        // Set the formatted date into the EditText
+                        dateEt.setText(selectedDate);
+                    },
+                    year, month, day
+            );
+        });
+
+        dialog.show();
     }
 
 }

@@ -86,10 +86,12 @@ public class SignUpActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         // Delay navigation to the next activity
                         pd.setVisibility(View.VISIBLE);
-                        storeInSharedPreferences(username,email,password);
+                        int userID = response.body().data.userId;
+                        storeInSharedPreferences(username,email,password,userID);
                         binding.signUpBtnSignUp.postDelayed(() -> {
                             pd.setVisibility(View.INVISIBLE);
-                            Toast.makeText(SignUpActivity.this, "Registration Successful!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, getInfoString(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SignUpActivity.this, "Registration Successful!!!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             finish(); // Close this activity
                         }, 2000); // Delay of 2 seconds
@@ -110,15 +112,25 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
     }
-    private void storeInSharedPreferences(String username,String email,String password)
+    private void storeInSharedPreferences(String username,String email,String password,int userid)
     {
         SharedPreferences namedPreference = getSharedPreferences("userInfo", MODE_PRIVATE);
         SharedPreferences.Editor editor = namedPreference.edit();
         editor.putString("username",username);
         editor.putString("email",email);
         editor.putString("password",password);
+        editor.putInt("userId",userid);
         editor.putBoolean("isLoggedIn",true);
         editor.apply();
+    }
+
+    private String getInfoString()
+    {
+        SharedPreferences preferences = getSharedPreferences("userInfo",MODE_PRIVATE);
+        String username = preferences.getString("username",null);
+        int userId = preferences.getInt("userId",0);
+        String email = preferences.getString("email",null);
+        return "Welcome username: "+username+" & userId: "+userId;
     }
 
 }

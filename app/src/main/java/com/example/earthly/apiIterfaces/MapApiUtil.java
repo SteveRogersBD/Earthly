@@ -5,6 +5,8 @@ import android.widget.Toast;
 
 import com.example.earthly.R;
 import com.example.earthly.RetrofitInstance;
+import com.example.earthly.requests.EventRequest;
+import com.example.earthly.responses.EventResponse;
 import com.example.earthly.responses.MapResponse;
 
 import java.util.List;
@@ -15,7 +17,13 @@ import retrofit2.Response;
 
 public class MapApiUtil {
 
-    public void searchLocations(Context context,String query, String latLong,MapCallBack callBack)
+    Context context;
+
+    public MapApiUtil(Context context) {
+        this.context = context;
+    }
+
+    public void searchLocations(Context context, String query, String latLong, MapCallBack callBack)
     {
         String apiKey = context.getString(R.string.map_key);
         MapApiInterface mapApi = RetrofitInstance.createMapApi();
@@ -48,8 +56,33 @@ public class MapApiUtil {
         });
     }
 
+    //from here starts the event related api handler methods
+    public void createEvent(int userId,EventRequest eventRequest)
+    {
+        RetrofitInstance.authApiInterface().createEvent(userId,eventRequest).enqueue(new Callback<EventResponse>() {
+            @Override
+            public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
+                Toast.makeText(context, "Event created successfully!!!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<EventResponse> call, Throwable throwable) {
+                Toast.makeText(context, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public interface MapCallBack{
         public List<MapResponse.LocalResult>onSuccess(List<MapResponse.LocalResult>results);
         public List<MapResponse.LocalResult>onFailure(String errorMessage);
     }
+
+    public interface EventCallBack<T>{
+        public T onSuccess(T data);
+        public T onFailure(String errorMessage);
+    }
+
+
+
+
 }
